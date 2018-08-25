@@ -44,7 +44,7 @@
             <legend id="copy_tip">长按框内 &gt; 拷贝 &gt; 打开手淘</legend>
             <p id="itemWord" class="itemWord" style="font-size: 12px;">复制框内整段文字，打开「手淘」即可「领取优惠券」并购买<span th:text="${secret}"></span></p>
         </fieldset>
-        <button type="button" data-clipboard-text="￥qhwsb25NVwf￥" class="itemCopy" style="">一键复制</button>
+        <button type="button" th:data-clipboard-text="${secret}" class="itemCopy" style="">一键复制</button>
 
         <a href="javascript:;" id="JdownApp" style="background: #00a1ff;border: none;font-size: 16px;padding: 6px 15px;display: inline-block;margin: 10px auto;border-radius: 16px;color: #fff;text-decoration: none;" class="itemJump">直接领券</a>
     </div>
