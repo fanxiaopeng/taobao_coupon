@@ -13,11 +13,14 @@ public class HelloController {
 
 
     @RequestMapping("/greeting")
-    public String greeting(Model model, @RequestParam(value = "id") String id) {
-        model.addAttribute("picUrl", "http://img.alicdn.com/tfscom/i2/136542304/TB2Q2koc0LO8KJjSZPcXXaV0FXa_!!136542304.jpg");
-        model.addAttribute("secret", "￥u99Xb2oy3Vj￥");
+    public String greeting(Model model, @RequestParam(value = "keyword") String keyword) {
 
+        TaoBaoService taoBaoService = new TaoBaoService();
+        CouponDO couponDO = taoBaoService.getCoupons(keyword);
 
+        model.addAttribute("picUrl", couponDO.getLogo());
+        model.addAttribute("secret", couponDO.getSecret());
+        model.addAttribute("text", couponDO.getText());
         return "/couponDetail";
     }
 }
