@@ -21,6 +21,6 @@ public class HelloController {
         model.addAttribute("picUrl", couponDO.getLogo());
         model.addAttribute("secret", couponDO.getSecret());
         model.addAttribute("text", couponDO.getText());
-        return "/couponDetail";
+        return "couponDetail";
     }
 }
