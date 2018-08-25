@@ -13,14 +13,14 @@ public class CouponApplicationTests {
 
 	@Test
 	public void test2() throws ApiException {
-		TaoBaoService service  = new TaoBaoService();
-		service.searchItem("纸巾");
+//		TaoBaoService service  = new TaoBaoService();
+//		service.searchItem("纸巾");
 	}
 
 	@Test
 	public void getInfo() throws ApiException {
-		TaoBaoService service  = new TaoBaoService();
-		service.getCoupons("纸巾");
+//		TaoBaoService service  = new TaoBaoService();
+//		service.getCoupons("纸巾");
 	}
 ;
 }
