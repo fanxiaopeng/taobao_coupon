@@ -38,6 +38,23 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.taobao.top</groupId>
+			<artifactId>taobao-api</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/resources/taobao-sdk-java-auto_1521526934105-20180822.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.6.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -48,6 +65,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

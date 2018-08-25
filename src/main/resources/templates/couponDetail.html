@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" type="text/css" href="http://yunpics.oss-cn-qingdao.aliyuncs.com/static/css/tjump.css?t=8">
+    <script src="https://hm.baidu.com/hm.js?df840154936f42dbe05fb1ee7e4de5f2"></script><script src="https://hm.baidu.com/hm.js?df840154936f42dbe05fb1ee7e4de5f2"></script><script src="https://hm.baidu.com/hm.js?df840154936f42dbe05fb1ee7e4de5f2"></script><script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/clipboard.js/1.6.1/clipboard.min.js"></script>
+    <title>请使用浏览器打开</title>
+    <style type="text/css">
+        *{margin:0; padding: 0;}
+        body{font:normal 14px/1.5 Arial,Microsoft Yahei; color:#333;}
+        .example{padding: 20px;}
+        .example p{margin: 20px 0;}
+        a{display: inline-block; background: #61B3E6; color:#fff; padding: 0 10px; border-radius: 4px; text-align: center; margin: 0 5px; line-height: 22px; font-size: 14px; text-decoration: none;}
+        a.btn-warn{background: #F0AD4E;}
+        a:hover{opacity: 0.8;}
+        .wxtip{background: rgba(0,0,0,0.8); text-align: center; position: fixed; left:0; top: 0; width: 100%; height: 100%; z-index: 998; display: none;}
+        .wxtip-icon{width: 52px; height: 67px; background: url(http://tv.souyoho.com/linktz/weixin-tip.png) no-repeat; display: block; position: absolute; right: 30px; top: 20px;}
+        .wxtip-txt{padding-top: 107px; color: #fff; font-size: 16px; line-height: 1.5;}
+    </style>
+</head>
+<body>
+
+<div class="beatMain">
+    <div class="imgContainer">
+        <img id="img" th:src="@{${picUrl}}" style="height: 1248px;"/>
+    </div>
+    <p class="itemContent">
+        <strong class="itemPrice"></strong>
+    </p>
+    <div class="beatWord">
+        <fieldset>
+            <legend id="copy_tip">长按框内 &gt; 拷贝 &gt; 打开手淘</legend>
+            <p id="itemWord" class="itemWord" style="font-size: 12px;">复制框内整段文字，打开「手淘」即可「领取优惠券」并购买<span th:text="${secret}"></span></p>
+        </fieldset>
+        <button type="button" data-clipboard-text="￥qhwsb25NVwf￥" class="itemCopy" style="">一键复制</button>
+
+        <a href="javascript:;" id="JdownApp" style="background: #00a1ff;border: none;font-size: 16px;padding: 6px 15px;display: inline-block;margin: 10px auto;border-radius: 16px;color: #fff;text-decoration: none;" class="itemJump">直接领券</a>
+    </div>
+    <div class="wxtip" id="JweixinTip">
+        <span class="wxtip-icon"></span>
+        <p class="wxtip-txt">点击右上角<br>选择在浏览器中打开</p>
+    </div>
+</div>
+<script>
+    $("#img").css('height', ($(window).width() - 32) + 'px');
+    var jumpLink = "";
+    var qLink = "";
+    $(function () {
+        //复制文本
+        var clipboard = new Clipboard('.itemCopy');
+        clipboard.on('success', function (e) {
+            if (e.trigger.disabled == false || e.trigger.disabled == undefined) {
+                e.trigger.innerHTML = "复制成功，打开手淘购买";
+                e.trigger.style.backgroundColor = "#9ED29E";
+                e.trigger.style.borderColor = "#9ED29E";
+                //e.clearSelection();
+                e.trigger.disabled = true;
+                //2秒后按钮恢复原状
+                setTimeout(function () {
+                    e.trigger.innerHTML = "一键复制";
+                    e.trigger.style.backgroundColor = "#f54d23";
+                    e.trigger.style.borderColor = "#f54d23";
+                    e.trigger.disabled = false;
+                }, 2000);
+            }
+        });
+
+        clipboard.on('error', function (e) {
+            e.trigger.innerHTML = "复制失败";
+            e.trigger.style.backgroundColor = "#8f8f8f";
+            e.trigger.style.borderColor = "#8f8f8f";
+        });
+
+        //UA判断
+        var isShow = 0;//控制是否显示一键复制按钮
+        var ua = navigator.userAgent.toLowerCase();
+        $('.itemCopy').show();
+
+        //自动选中
+        var beat = document.querySelector('.beatWord');
+        var word = document.querySelector('.itemWord');
+        var copy = document.querySelector('.itemCopy');
+        document.addEventListener("selectionchange", function (e) {
+            window.getSelection().selectAllChildren(word);
+        }, false);
+        var _hmt = _hmt || [];
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?df840154936f42dbe05fb1ee7e4de5f2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+        if (jumpLink != "") {
+            setTimeout(function () { window.parent.location = jumpLink; },500)
+        }
+    });
+
+
+
+
+    function weixinTip(ele){
+        var ua = navigator.userAgent;
+        var isWeixin = !!/MicroMessenger/i.test(ua);
+        if(isWeixin){
+            ele.onclick=function(e){
+                window.event? window.event.returnValue = false : e.preventDefault();
+                document.getElementById('JweixinTip').style.display='block';
+            }
+            document.getElementById('JweixinTip').onclick=function(){
+                this.style.display='none';
+            }
+        }
+    }
+    var btn1 = document.getElementById('JdownApp');//下载一
+    weixinTip(btn1);
+</script>
+</body></html>
